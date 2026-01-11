@@ -25,7 +25,7 @@ export const viewport: Viewport = {
 
 // 3. SEO e Metadados (Unificados em um único objeto)
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"), // Altere para a URL real no deploy
+  metadataBase: new URL("https://clinica-estetica-premium.vercel.app"), 
   title: {
     default: "Clínica Estética Premium | Harmonização & Odonto em Teresina",
     template: "%s | Clínica Estética Premium"

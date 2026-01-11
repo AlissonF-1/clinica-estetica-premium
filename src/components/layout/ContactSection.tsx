@@ -13,7 +13,7 @@ export default function ContactSection() {
 
     const formData = new FormData(e.currentTarget);
     // NOTA: Em produção, o ID vem do Formspree
-    const response = await fetch("https://formspree.io/f/SEU_ID_AQUI", {
+    const response = await fetch("https://formspree.io/f/id", {
       method: "POST",
       body: formData,
       headers: { 'Accept': 'application/json' }
