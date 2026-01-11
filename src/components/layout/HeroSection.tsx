@@ -4,8 +4,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, ShieldCheck, Star } from 'lucide-react';
 import Image from 'next/image';
-// Removi a importação cn se não estiver usando, se estiver, mantenha.
-// import { cn } from '@/lib/utils'; 
 
 const Badge = ({ children }: { children: React.ReactNode }) => (
   <motion.div 
@@ -32,63 +30,57 @@ const PrimaryButton = ({ text }: { text: string }) => (
 
 export default function HeroSection() {
   return (
-    // Adicionado overflow-hidden para garantir que as "bolhas" do fundo não causem scroll lateral
     <section className="relative min-h-screen flex items-center justify-center pt-24 pb-12 px-6 bg-[#FCFBF9] overflow-hidden">
       
-      {/* Background Decorativo */}
+      {/* BACKGROUND OTIMIZADO (Sem lag) */}
       <div className="absolute inset-0 pointer-events-none">
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute top-[-10%] right-[-5%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-amber-100/30 rounded-full blur-[80px] md:blur-[120px]" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.6, 0.4] }}
-          transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-          className="absolute bottom-[10%] left-[-5%] w-[200px] md:w-[400px] h-[200px] md:h-[400px] bg-stone-200/40 rounded-full blur-[60px] md:blur-[100px]" 
-        />
+        {/* Mobile: Gradiente estático (Leve) */}
+        <div className="block md:hidden absolute top-0 right-0 w-full h-[500px] bg-gradient-to-b from-amber-50/50 to-transparent" />
+        
+        {/* Desktop: Animação completa (Só carrega em telas grandes) */}
+        <div className="hidden md:block">
+            <motion.div 
+            animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+            transition={{ duration: 8, repeat: Infinity }}
+            className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-amber-100/30 rounded-full blur-[100px] will-change-transform" 
+            />
+            <motion.div 
+            animate={{ scale: [1, 1.2, 1], opacity: [0.4, 0.6, 0.4] }}
+            transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+            className="absolute bottom-[10%] left-[-5%] w-[400px] h-[400px] bg-stone-200/40 rounded-full blur-[80px] will-change-transform" 
+            />
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
         <motion.div 
-          initial={{ opacity: 0, x: -50 }} 
+          initial={{ opacity: 0, x: -20 }} 
           animate={{ opacity: 1, x: 0 }} 
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
         >
           <Badge>
             <Sparkles size={14} className="text-amber-500" />
             Excelência em Estética & Odonto
           </Badge>
           
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-4xl md:text-5xl lg:text-7xl font-light text-stone-900 leading-[1.1] tracking-tight mb-6 md:mb-8"
-          >
+          <h1 className="text-4xl md:text-5xl lg:text-7xl font-light text-stone-900 leading-[1.1] tracking-tight mb-6 md:mb-8">
             Sua beleza tratada como <br className="hidden md:block" />
             <span className="font-serif italic text-amber-600 block md:inline mt-2 md:mt-0">uma obra de arte.</span>
-          </motion.h1>
+          </h1>
           
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="text-base md:text-lg text-stone-500 mb-8 md:mb-10 leading-relaxed max-w-lg"
-          >
+          <p className="text-base md:text-lg text-stone-500 mb-8 md:mb-10 leading-relaxed max-w-lg">
             Protocolos personalizados que unem tecnologia avançada e sensibilidade artística para realçar sua essência com naturalidade.
-          </motion.p>
+          </p>
           
           <div className="flex flex-col sm:flex-row gap-6 md:gap-8 items-center">
             <PrimaryButton text="AGENDAR AVALIAÇÃO" />
             
             <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.7, duration: 0.8 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
               className="flex items-center gap-4 w-full sm:w-auto justify-center sm:justify-start"
             >
-              {/* Fotos fictícias de pacientes satisfeitos */}
               <div className="flex -space-x-3">
                 {[
                   "https://i.pravatar.cc/150?u=a",
@@ -96,7 +88,7 @@ export default function HeroSection() {
                   "https://i.pravatar.cc/150?u=c"
                 ].map((src, i) => (
                   <div key={i} className="relative w-10 h-10 md:w-12 md:h-12 rounded-full border-4 border-[#FCFBF9] overflow-hidden shadow-sm">
-                    <Image src={src} alt="Paciente Satisfeito" fill className="object-cover" />
+                    <Image src={src} alt="Paciente" fill className="object-cover" />
                   </div>
                 ))}
               </div>
@@ -112,14 +104,10 @@ export default function HeroSection() {
               { icon: <ShieldCheck size={20}/>, label: "Segurança Total" },
               { icon: <Star size={20} fill="currentColor"/>, label: "Premium Care" }
             ].map((item, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ y: -5 }}
-                className="flex items-center gap-3 cursor-default"
-              >
+              <div key={i} className="flex items-center gap-3 cursor-default">
                 <div className="p-2 bg-stone-100 rounded-lg text-amber-600">{item.icon}</div>
                 <span className="text-xs md:text-sm font-bold text-stone-600 uppercase tracking-wider">{item.label}</span>
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>
@@ -127,38 +115,29 @@ export default function HeroSection() {
         {/* Imagem Principal */}
         <motion.div 
           className="relative mt-8 lg:mt-0"
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }} // Reduzi a escala inicial para pesar menos na animação
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "circOut" }}
+          transition={{ duration: 1 }}
         >
-          <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.12)] border-[8px] md:border-[12px] border-white">
+          <div className="relative aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)] border-[8px] md:border-[12px] border-white">
              <Image 
-               src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070" 
+               src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=800" // Usei w=800 para carregar uma imagem menor (antes era 2070px!)
                alt="Procedimento Estético"
                fill
                priority
-               className="object-cover transition-transform duration-1000"
+               className="object-cover"
+               sizes="(max-width: 768px) 100vw, 50vw" // Importante para performance
              />
              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/30 via-transparent to-transparent pointer-events-none" />
           </div>
           
-          {/* Card Flutuante com Correção para Mobile */}
           <motion.div 
-            animate={{ 
-              y: [0, -15, 0],
-              rotate: [0, 2, 0]
-            }}
-            transition={{ 
-              duration: 5, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            // AQUI ESTAVA O ERRO: -left-6 quebrava no mobile. 
-            // Agora usa left-4 no mobile e volta para -left-6 no desktop (md:).
-            className="absolute -bottom-6 left-4 md:-bottom-6 md:-left-6 bg-white/90 backdrop-blur-xl p-4 md:p-6 rounded-3xl border border-white shadow-xl max-w-[200px] md:max-w-[240px] z-20"
+            animate={{ y: [0, -10, 0] }} // Reduzi o movimento
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -bottom-6 left-4 md:-bottom-6 md:-left-6 bg-white/95 backdrop-blur-md p-4 md:p-6 rounded-3xl border border-white shadow-xl max-w-[200px] md:max-w-[240px] z-20"
           >
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-green-500" />
               <p className="text-stone-900 font-black text-[9px] md:text-[10px] uppercase tracking-[0.2em]">Status: Disponível</p>
             </div>
             <p className="text-amber-600 font-serif italic text-lg md:text-xl leading-tight">Vagas abertas para esta semana</p>
