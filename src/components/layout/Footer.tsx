@@ -33,7 +33,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3 hover:text-white transition cursor-pointer group">
                 <Phone size={16} className="text-amber-600 group-hover:text-amber-500 transition" /> 
-                <span>+55 (86) 99999-9999</span>
+                <span>+55 (86) 98876-7843</span>
               </li>
               <li className="flex items-center gap-3 group">
                 <MapPin size={16} className="text-amber-600" /> 
@@ -57,7 +57,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-stone-800 pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest text-stone-600 gap-4 text-center md:text-left">
-          <p>© 2026 Clínica Estética Premium. Todos os direitos reservados.</p>
+          <p>© 2026 Clínica Estética Premium. Todos os direitos reservados. Alisson Flaynn</p>
           <div className="flex flex-col md:flex-row gap-4 md:gap-8">
             <span className="hover:text-stone-400 cursor-pointer">Política de Privacidade</span>
             <span className="hover:text-stone-400 cursor-pointer">Termos de Uso</span>
@@ -67,7 +67,7 @@ export default function Footer() {
 
       {/* Botão de WhatsApp Flutuante - Ajustado o posicionamento (right-4 no mobile) */}
       <a 
-        href="https://wa.me/5586999999999" 
+        href="https://wa.me/5586988767843" 
         target="_blank" 
         rel="noopener noreferrer"
         className="fixed bottom-6 right-4 md:bottom-8 md:right-8 z-50 bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300"

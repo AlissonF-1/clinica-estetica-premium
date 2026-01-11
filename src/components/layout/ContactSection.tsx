@@ -34,7 +34,7 @@ export default function ContactSection() {
             </label>
             <input 
               type="tel" 
-              placeholder="(86) 99999-9999" 
+              placeholder="(86) 98876-7843" 
               className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-4 text-stone-800 placeholder:text-stone-300 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all"
             />
           </div>
