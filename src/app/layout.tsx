@@ -53,7 +53,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className="scroll-smooth">
-      <body className={`${sans.variable} ${serif.variable} font-sans antialiased bg-[#FCFBF9] text-stone-900`}>
+      {/* Adicionado overflow-x-hidden para garantir que animações de entrada não criem scroll horizontal temporário */}
+      <body className={`${sans.variable} ${serif.variable} font-sans antialiased bg-[#FCFBF9] text-stone-900 overflow-x-hidden`}>
         {children}
       </body>
     </html>
