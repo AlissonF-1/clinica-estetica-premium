@@ -8,8 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
-// --- DADOS DOS TRATAMENTOS (Simulando um banco de dados) ---
-// As chaves devem bater exatamente com os links definidos no componente anterior
+// --- DADOS DOS TRATAMENTOS ---
 const TREATMENT_DETAILS: Record<string, {
   title: string;
   subtitle: string;
@@ -110,7 +109,6 @@ export default function TreatmentDetailsPage() {
     if (slug && TREATMENT_DETAILS[slug]) {
       setData(TREATMENT_DETAILS[slug]);
     } else if (slug) {
-      // Opcional: Redirecionar para 404 se o slug não existir
       // router.push('/404'); 
     }
   }, [slug, router]);
@@ -129,7 +127,8 @@ export default function TreatmentDetailsPage() {
   return (
     <article className="bg-white min-h-screen pb-20">
       {/* HEADER / HERO */}
-      <div className="relative h-[60vh] w-full overflow-hidden">
+      {/* MODIFICAÇÃO: Aumentei a altura no mobile (65vh) para caber melhor o texto */}
+      <div className="relative h-[65vh] md:h-[70vh] w-full overflow-hidden">
         <Image
           src={data.heroImg}
           alt={data.title}
@@ -137,51 +136,59 @@ export default function TreatmentDetailsPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-900/95 via-stone-900/50 to-transparent" />
         
-        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12 max-w-7xl mx-auto">
+        {/* MODIFICAÇÃO: Ajuste de padding-bottom responsivo. 
+            pb-12 no mobile (espaço normal)
+            md:pb-32 no desktop (espaço extra para compensar a sobreposição do card branco) */}
+        <div className="absolute inset-0 flex flex-col justify-end p-6 pb-12 md:p-12 md:pb-32 max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             <Link 
-              href="/#tratamentos" // Volta para a âncora na home
-              className="inline-flex items-center gap-2 text-white/80 hover:text-amber-400 transition-colors mb-6 text-sm uppercase tracking-widest font-bold"
+              href="/#tratamentos"
+              className="inline-flex items-center gap-2 text-white/80 hover:text-amber-400 transition-colors mb-4 md:mb-6 text-xs md:text-sm uppercase tracking-widest font-bold"
             >
               <ArrowLeft size={16} /> Voltar para Tratamentos
             </Link>
-            <h1 className="text-4xl md:text-6xl font-serif text-white mb-2 italic">
+            <h1 className="text-3xl md:text-6xl font-serif text-white mb-3 italic leading-tight">
               {data.title}
             </h1>
-            <p className="text-xl text-stone-200 font-light max-w-2xl">
+            <p className="text-lg md:text-xl text-stone-200 font-light max-w-2xl leading-relaxed">
               {data.subtitle}
             </p>
           </motion.div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 -mt-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      {/* MODIFICAÇÃO CRÍTICA AQUI:
+          1. mt-0 no mobile: Remove a margem negativa. O card branco começa DEPOIS da imagem.
+          2. md:-mt-24 no desktop: Mantém e aumenta a sobreposição elegante apenas em telas grandes.
+      */}
+      <div className="max-w-7xl mx-auto px-6 mt-0 md:-mt-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
           
           {/* COLUNA PRINCIPAL (ESQUERDA) */}
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="lg:col-span-2 space-y-12"
+            className="lg:col-span-2 space-y-8 md:space-y-12"
           >
             {/* Descrição */}
-            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-stone-200/50 border border-stone-100">
+            {/* Adicionado 'pt-10' apenas no mobile para separar visualmente do hero caso precise, ou manter zerado */}
+            <div className="bg-white p-6 md:p-12 rounded-3xl shadow-none md:shadow-xl md:shadow-stone-200/50 border-0 md:border border-stone-100">
               <h2 className="text-2xl font-bold text-stone-900 mb-6 flex items-center gap-3">
                 <span className="w-8 h-[2px] bg-amber-600 block"></span>
                 Sobre o Procedimento
               </h2>
-              <p className="text-stone-600 leading-relaxed text-lg">
+              <p className="text-stone-600 leading-relaxed text-base md:text-lg text-justify">
                 {data.description}
               </p>
 
-              <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="mt-8 md:mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 <InfoCard icon={<Clock size={20}/>} label="Duração da Sessão" value={data.duration} />
                 <InfoCard icon={<Calendar size={20}/>} label="Tempo de Recuperação" value={data.recovery} />
                 <InfoCard icon={<ShieldCheck size={20}/>} label="Resultados Esperados" value={data.results} />
@@ -189,7 +196,7 @@ export default function TreatmentDetailsPage() {
             </div>
 
             {/* FAQ */}
-            <div className="space-y-6">
+            <div className="space-y-6 px-2 md:px-0">
               <h3 className="text-xl font-bold text-stone-900">Perguntas Frequentes</h3>
               <div className="grid gap-4">
                 {data.faq.map((item, i) => (
@@ -244,7 +251,7 @@ export default function TreatmentDetailsPage() {
   );
 }
 
-// Pequeno componente auxiliar para os cards de informação
+// Pequeno componente auxiliar
 const InfoCard = ({ icon, label, value }: { icon: React.ReactNode, label: string, value: string }) => (
   <div className="flex items-start gap-4 p-4 bg-stone-50 rounded-xl">
     <div className="text-amber-600 bg-white p-2 rounded-lg shadow-sm">
