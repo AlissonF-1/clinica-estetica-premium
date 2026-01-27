@@ -4,37 +4,41 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link'; // Importação essencial para navegação
 import { cn } from '@/lib/utils';
 
 const TREATMENTS = [
   {
     title: "Harmonização Facial",
     description: "Protocolos personalizados para realçar sua beleza natural com sutileza.",
-    // NOVO LINK: Mais estável e em alta definição
     img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=2070",
     colSpan: "md:col-span-2",
-    bg: "bg-amber-50"
+    bg: "bg-amber-50",
+    href: "/tratamentos/harmonizacao-facial" // Rota definida
   },
   {
     title: "Lentes de Contato",
     description: "O sorriso dos sonhos com tecnologia 3D.",
     img: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1974",
     colSpan: "md:col-span-1",
-    bg: "bg-stone-50"
+    bg: "bg-stone-50",
+    href: "/tratamentos/lentes-de-contato"
   },
   {
     title: "Bioestimuladores",
     description: "Recupere o colágeno e a firmeza da pele.",
     img: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070",
     colSpan: "md:col-span-1",
-    bg: "bg-stone-100"
+    bg: "bg-stone-100",
+    href: "/tratamentos/bioestimuladores"
   },
   {
     title: "Protocolos VIP",
     description: "Atendimento exclusivo em horário estendido em Teresina.",
     img: "https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=2070",
     colSpan: "md:col-span-2",
-    bg: "bg-amber-100/50"
+    bg: "bg-amber-100/50",
+    href: "/tratamentos/protocolos-vip"
   },
 ];
 
@@ -96,12 +100,16 @@ export default function TreatmentsSection() {
                 <p className="text-stone-600 max-w-xs leading-relaxed">{t.description}</p>
               </div>
 
-              <div className="relative z-10 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-stone-900 group/btn w-fit cursor-pointer">
+              {/* Botão transformado em Link para navegação real */}
+              <Link 
+                href={t.href}
+                className="relative z-10 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-stone-900 group/btn w-fit cursor-pointer"
+              >
                 SAIBA MAIS 
                 <div className="p-2 bg-white rounded-full group-hover/btn:bg-stone-900 group-hover/btn:text-white transition-all duration-300">
                    <ArrowUpRight size={14} className="group-hover/btn:rotate-45 transition-transform"/>
                 </div>
-              </div>
+              </Link>
 
               <div className="absolute inset-0 z-0">
                  <Image
